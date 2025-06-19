@@ -43,5 +43,20 @@ namespace Expence_Managment_Core_WebApplication.Services
             var response = await _httpClient.DeleteAsync($"https://localhost:44327/api/Authenticate/{id}");
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<object> AuthenticateUser(string username, string password)
+        {
+            var user = new Users { UserName = username, PasswordHash = password };
+            var response = await _httpClient.PostAsJsonAsync("https://localhost:44327/api/Authenticate/login", user);
+            
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<Users>();
+            }
+            else
+            {
+                return null; // or handle the error as needed
+            }
+        }
     }
 }

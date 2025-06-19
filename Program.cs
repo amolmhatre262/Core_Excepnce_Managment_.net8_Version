@@ -2,9 +2,17 @@ using Expence_Managment_Core_WebApplication.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+// Add session services
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession();                  
+builder.Services.AddHttpContextAccessor();       
 builder.Services.AddHttpClient<UserServices>();
+
 
 
 var app = builder.Build();
@@ -20,12 +28,14 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseSession();
+
 app.UseRouting();
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=User}/{action=Index}/{id?}");
+    pattern: "{controller=LoginController1}/{action=Index}/{id?}");
 
 app.Run();
