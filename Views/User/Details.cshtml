@@ -1,0 +1,40 @@
+﻿@model Expence_Managment_Core_WebApplication.Models.Users
+<form asp-action="UpdateUser" asp-controller="User" method="post">
+    <input type="hidden" asp-for="UserID" />
+
+    <table class="table table-bordered">
+        <tr>
+            <th>User ID</th>
+            <td>@Model.UserID</td>
+        </tr>
+        <tr>
+            <th>User Name</th>
+            <td>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td>
+                <input asp-for="PasswordHash" class="form-control" />
+                <span asp-validation-for="PasswordHash" class="text-danger"></span>
+            </td>
+        </tr>
+    </table>
+
+    <button type="submit" class="btn btn-success">Save Changes</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
